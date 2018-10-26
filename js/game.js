@@ -45,8 +45,8 @@ function PauseMenu(){
   if(gameEnd == true) {
     gameEnd == false;
     foreground.children[0].textContent = currentWinner + ' WIN';
-    currentWinner = '';
     containerForGame.insertBefore(foreground,containerForGame.children[0]);
+    currentWinner = '';
   }
 }
 
@@ -57,6 +57,7 @@ function StartNewGame() {
 }
   
 function Start() {
+  foreground.children[0].textContent = '';
   foreground.remove();
   StartNewGame();
 }
@@ -134,7 +135,6 @@ function DefineWinner() {
     } else if(matr[1][0] == 'o')
       WinnerIsO()
   } 
-  
   if(matr[2][0] != undefined && matr[2][0]== matr[2][1] && matr[2][0] == matr[2][2]){
     if(matr[2][0] == 'x') {
       WinnerIsX()
