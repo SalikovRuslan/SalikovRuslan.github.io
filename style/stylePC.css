@@ -1,6 +1,18 @@
 @import "../style/styleMobile.css" screen;
 
 
+#score{
+  justify-content: center;
+}
+
+#score div:first-child {
+  margin: 0 100px 0 0;
+}
+
+#score div:last-child {
+  margin: 0 0 0 100px;
+}
+
 #game div:hover {
   background: rgba(92, 213, 243, 0.616);
 }
