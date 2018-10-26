@@ -6,13 +6,14 @@
 }
 
 #score div:first-child {
-  margin: 0 100px 0 0;
+  margin: 0 80px 0 0;
 }
 
 #score div:last-child {
-  margin: 0 0 0 100px;
+  margin: 0 0 0 80px;
 }
 
 #game div:hover {
   background: rgba(92, 213, 243, 0.616);
+
 }
