@@ -1,20 +1,18 @@
 let fields = document.querySelector('#game').children;
 let template = document.querySelector('#template');
-let winnerX = template.content.querySelector('#winner-x').cloneNode(true);
-let winnerO = template.content.querySelector('#winner-y').cloneNode(true);
 let x = template.content.querySelector('#x');
 let o = template.content.querySelector('#o');
 let containerForGame = document.querySelector('#container-for-game');
 let foreground = template.content.querySelector('#foreground').cloneNode(true);
 
 let Player1 = {
-  name: 'Player 1',
+  name: 'Player1',
   currentSymbol: 'x',
   winCount: document.querySelector('#score-player_1')
 };
 
 let Player2 = {
-  name:'Player 2',
+  name:'Player2',
   currentSymbol: 'o',
   winCount: document.querySelector('#score-player_2')
 };
@@ -33,22 +31,57 @@ let matr = [
 for (let i = 0; i < fields.length; i++) {
   fields[i].addEventListener('click', FieldClick); 
 }
+foreground.addEventListener('click', HideForeground);
+
+function HideForeground(){
+  HideElement(this);
+}
 
 
+function CheckStatus(){
+  switch(gameEnd) {
+    case true: 
+      gameEnd == false;
+      foreground.children[0].textContent = currentWinner + ' WIN';
+      containerForGame.insertBefore(foreground, containerForGame.children[0]);
+      currentWinner = '';
+      break;
+    case false:
+      foreground.children[0].textContent = 'No winner';
+      containerForGame.insertBefore(foreground, containerForGame.children[0])
+      break;
+  }
+}
 
 PauseMenu();
 
 function PauseMenu(){
-  if(gameEnd == false){
-    foreground.addEventListener('click', Start);
-    containerForGame.insertBefore(foreground,containerForGame.children[0]);
+  switch(gameEnd) {
+    case true: 
+      gameEnd == false;
+      foreground.children[0].textContent = currentWinner + ' WINS';
+      ShowForeground();
+      currentWinner = '';
+      break;
+    case false:
+      ShowForeground();
+      break;
+    case undefined:
+      foreground.children[0].textContent = 'No winner';
+      ShowForeground();
+      gameEnd = false;
+      break;
   }
-  if(gameEnd == true) {
-    gameEnd == false;
-    foreground.children[0].textContent = currentWinner + ' WIN';
-    containerForGame.insertBefore(foreground,containerForGame.children[0]);
-    currentWinner = '';
-  }
+}
+
+function ShowForeground() {
+  containerForGame.insertBefore(foreground, containerForGame.children[0]);
+}
+
+function HideElement(element) {
+  element.children[0].textContent = '';
+  element.remove();
+  StartNewGame();
 }
 
 function StartNewGame() {
@@ -57,13 +90,7 @@ function StartNewGame() {
   count = 1;
 }
   
-function Start() {
-  foreground.children[0].textContent = '';
-  foreground.remove();
-  StartNewGame();
-}
-
- function FieldClick() {
+function FieldClick() {
   if((count % 2) != 0) {
     this.appendChild(x.cloneNode(true));
     this.style.pointerEvents = 'none';
@@ -73,11 +100,9 @@ function Start() {
   }
   AddToMatrix(this);
   DefineWinner();
-  
- }
+}
 
 function WinnerIsX() {
-  /* document.querySelector('#information').appendChild(winnerX); */
   currentWinSymbol = 'x';
   Player1.winCount.textContent = parseInt(Player1.winCount.textContent) + 1;
   currentWinner = Player1.name;
@@ -123,57 +148,90 @@ function AddToMatrix(field) {
   }
 }
 
+function ChangeWinnerLine(a, b, c) {
+  fields[a].style.background = 'rgba(86, 91, 92, 0.616)';
+  fields[a].children[0].style.color = 'white';
+  fields[b].style.background = 'rgba(86, 91, 92, 0.616)';
+  fields[b].children[0].style.color = 'white';
+  fields[c].style.background = 'rgba(86, 91, 92, 0.616)';
+  fields[c].children[0].style.color = 'white';
+}
+
 function DefineWinner() {
   if(matr[0][0] != undefined && matr[0][0]== matr[0][1] && matr[0][0] == matr[0][2]) {
     if(matr[0][0] == 'x') {
-    WinnerIsX();
-  } else if(matr[0][0] == 'o')
-    WinnerIsO();
+      WinnerIsX();
+    } else if(matr[0][0] == 'o') {
+      WinnerIsO();
+    }
+    ChangeWinnerLine(0, 1, 2);
+    return; 
   }
   if(matr[1][0] != undefined && matr[1][0]== matr[1][1] && matr[1][0] == matr[1][2]){
     if(matr[1][0] == 'x') {
-      WinnerIsX()
-    } else if(matr[1][0] == 'o')
-      WinnerIsO()
+      WinnerIsX();
+    } else if(matr[1][0] == 'o') {
+      WinnerIsO();
+    }
+    ChangeWinnerLine(3, 4, 5);
+    return; 
   } 
   if(matr[2][0] != undefined && matr[2][0]== matr[2][1] && matr[2][0] == matr[2][2]){
     if(matr[2][0] == 'x') {
-      WinnerIsX()
-    } else if(matr[2][0] == 'o')
-        WinnerIsO()
+      WinnerIsX();
+    } else if(matr[2][0] == 'o') {
+      WinnerIsO();
+    }
+    ChangeWinnerLine(6, 7, 8);
+    return; 
   }
   if(matr[0][0] != undefined && matr[0][0]== matr[1][0] && matr[0][0] == matr[2][0]){
     if(matr[0][0] == 'x') {
-      WinnerIsX()
-    } else if(matr[0][0] == 'o')
-        WinnerIsO()
+      WinnerIsX();
+    } else if(matr[0][0] == 'o') {
+      WinnerIsO();
+    }
+    ChangeWinnerLine(0, 3, 6);
+    return; 
   }
   if(matr[0][1] != undefined && matr[0][1]== matr[1][1] && matr[0][1] == matr[2][1]){
     if(matr[0][1] == 'x') {
-      WinnerIsX()
-    } else if(matr[0][1] == 'o')
-        WinnerIsO()
+      WinnerIsX();
+    } else if(matr[0][1] == 'o') {
+      WinnerIsO();
+    }
+    ChangeWinnerLine(1, 4, 7);
+    return; 
   }
   if(matr[0][2] != undefined && matr[0][2]== matr[1][2] && matr[0][2] == matr[2][2]){
     if(matr[0][2] == 'x') {
-      WinnerIsX()
-    } else if(matr[0][2] == 'o')
-        WinnerIsO()
+      WinnerIsX();
+    } else if(matr[0][2] == 'o') {
+      WinnerIsO();
+    }
+    ChangeWinnerLine(2, 5, 8);
+    return; 
   }
   if(matr[0][0] != undefined && matr[0][0]== matr[1][1] && matr[0][0] == matr[2][2]){
     if(matr[0][0] == 'x') {
-      WinnerIsX()
-    } else if(matr[0][0] == 'o')
-        WinnerIsO()
+      WinnerIsX();
+    } else if(matr[0][0] == 'o') {
+      WinnerIsO();
+    }
+    ChangeWinnerLine(0, 4, 8);
+    return; 
   }
   if(matr[0][2] != undefined && matr[0][2]== matr[1][1] && matr[0][2] == matr[2][0]){
     if(matr[0][2] == 'x') {
-      WinnerIsX()
-    } else if(matr[0][2] == 'o')
-        WinnerIsO()
+      WinnerIsX();
+    } else if(matr[0][2] == 'o') {
+      WinnerIsO();
+    }
+    ChangeWinnerLine(2, 4, 6);
+    return; 
   }
-  if (count == 9) {
-    gameEnd = true;
+  else if(count == 9 && currentWinner == '') {
+    gameEnd = undefined;
     PauseMenu();
   }
   else {
@@ -186,7 +244,9 @@ function CleanField(){
   for (let i = 0; i < fields.length; i++) {
     fields[i].style.pointerEvents = 'auto';
     if(fields[i].children.length > 0) {
+      fields[i].style.background = '';
       fields[i].removeChild(fields[i].children[0])
+     
     }
   }
 }
