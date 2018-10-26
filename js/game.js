@@ -14,7 +14,7 @@ let Player1 = {
 };
 
 let Player2 = {
-  name:'Player 1',
+  name:'Player 2',
   currentSymbol: 'o',
   winCount: document.querySelector('#score-player_2')
 };
@@ -22,6 +22,7 @@ let Player2 = {
 let currentWinner = '';
 let currentWinSymbol = '';
 let count = 1;
+let draw = false;
 let gameEnd = false;
 let matr = [
   [,,],
@@ -38,16 +39,15 @@ foreground.addEventListener('click', Start);
 document.addEventListener("DOMContentLoaded", PauseMenu);
 
 function PauseMenu(){
-
   if(gameEnd == false){
     containerForGame.insertBefore(foreground,containerForGame.children[0]);
   }
   if(gameEnd == true) {
     gameEnd == false;
+    foreground.children[0].textContent = currentWinner + ' WIN';
+    currentWinner = '';
     containerForGame.insertBefore(foreground,containerForGame.children[0]);
-    
   }
-  
 }
 
 function StartNewGame() {
@@ -71,36 +71,25 @@ function Start() {
   }
   AddToMatrix(this);
   DefineWinner();
-  count++;
+  
  }
 
 function WinnerIsX() {
   /* document.querySelector('#information').appendChild(winnerX); */
   currentWinSymbol = 'x';
-  SetCurrentWinner();
+  Player1.winCount.textContent = parseInt(Player1.winCount.textContent) + 1;
+  currentWinner = Player1.name;
   gameEnd = true;
   PauseMenu();
 }
 
 function WinnerIsO() {
   currentWinSymbol = 'o';
-  SetCurrentWinner();
+  Player2.winCount.textContent = parseInt(Player2.winCount.textContent) + 1;
+  currentWinner = Player2.name;
   gameEnd = true;
   PauseMenu();
 }
-
-function SetCurrentWinner() {
-  if(Player1.currentSymbol == currentWinSymbol) {
-    Player1.winCount.textContent = parseInt(Player1.winCount.textContent) + 1;
-    currentWinner = Player1.name;
-  } else {
-    Player2.winCount.textContent = parseInt(Player2.winCount.textContent) + 1;
-    urrentWinner = Player2.name;
-  }
-}
-
-
-
 
 function AddToMatrix(field) {
   if (field == fields[0]) {
@@ -182,12 +171,12 @@ function DefineWinner() {
     } else if(matr[0][2] == 'o')
         WinnerIsO()
   }
-  if (count >= 9) {
+  if (count == 9) {
     gameEnd = true;
-    StartNewGame();
+    PauseMenu();
   }
   else {
-    console.log('. ' + count);
+    count++;
     return;
   } 
 }
