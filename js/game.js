@@ -171,7 +171,7 @@ function DefineWinner() {
     } else if(matr[0][2] == 'o')
         WinnerIsO()
   }
-  if (count == 9 && currentWinner != '') {
+  if (count == 9) {
     gameEnd = true;
     PauseMenu();
   }
