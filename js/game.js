@@ -37,7 +37,6 @@ function HideForeground(){
   HideElement(this);
 }
 
-
 function CheckStatus(){
   switch(gameEnd) {
     case true: 
