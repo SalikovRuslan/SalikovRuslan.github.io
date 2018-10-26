@@ -1,0 +1,6 @@
+@import "../style/styleMobile.css" screen;
+
+
+#game div:hover {
+  background: rgba(92, 213, 243, 0.616);
+}

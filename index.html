@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="style/styleMobile.css" media="(max-width: 700px)">
+  <link rel="stylesheet" href="style/stylePC.css" media="(min-width: 700px)">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+
+  </header>
+
+  <div class="container">
+    <section id="information">
+      <h1>tic-tac-toe</h1>
+      <!-- <h2>tap for start</h2> -->
+      <h3>Current score</h3>
+      <div id="score">
+        <div>
+          <p>Player 1</p>
+          <span id="score-player_1">0</span>
+        </div>
+        <div>
+          <p>Player 2</p>
+          <span id="score-player_2">0</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="container center" id="container-for-game">
+    <section id="game">
+      <div class="field black" id="field_1"></div>
+      <div class="field white" id="field_2"></div>
+      <div class="field black" id="field_3"></div>
+      <div class="field white" id="field_4"></div>
+      <div class="field black" id="field_5"></div>
+      <div class="field white" id="field_6"></div>
+      <div class="field black" id="field_7"></div>
+      <div class="field white" id="field_8"></div>
+      <div class="field black" id="field_9"></div>
+    </section>
+  </div>
+
+  <!-- <section class="remote">
+    <div id="change-symbol" >change</div>
+  </section> -->
+
+  <footer>
+
+  </footer>
+
+<template id="template">
+    <p id="x">x</p>
+    <p id="o">o</p>
+    <p id="winner-x">X is winner</p>
+    <p id="winner-y">O is winner</p>
+    <div id="foreground">
+        <p>Tap for start</p>
+      </div>
+</template>
+
+<script src="js/game.js"></script>
+
+</body>
+</html>
