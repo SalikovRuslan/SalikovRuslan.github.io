@@ -34,12 +34,13 @@ for (let i = 0; i < fields.length; i++) {
   fields[i].addEventListener('click', FieldClick); 
 }
 
-foreground.addEventListener('click', Start);
 
-document.addEventListener("DOMContentLoaded", PauseMenu);
+
+PauseMenu();
 
 function PauseMenu(){
   if(gameEnd == false){
+    foreground.addEventListener('click', Start);
     containerForGame.insertBefore(foreground,containerForGame.children[0]);
   }
   if(gameEnd == true) {
